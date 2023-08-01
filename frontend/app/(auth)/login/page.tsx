@@ -1,8 +1,7 @@
 /* eslint-disable */
 "use client";
 import { redirect } from "next/navigation";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import Button from "@/lib/components/ui/Button";
 import Card from "@/lib/components/ui/Card";
@@ -13,25 +12,12 @@ import { useToast } from "@/lib/hooks/useToast";
 
 
 export default function Login() {
-  const router = useRouter();
-
-  const emailParam = Array.isArray(router.query.email) ? router.query.email[0] : router.query.email;
-  const passwordParam = Array.isArray(router.query.password) ? router.query.password[0] : router.query.password;
-
   const { supabase, session } = useSupabase();
-  const [email, setEmail] = useState(emailParam || '');
-  const [password, setPassword] = useState(passwordParam || '');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isPending, setIsPending] = useState(false);
 
   const { publish } = useToast();
-
-  useEffect(() => {
-    if (emailParam && passwordParam) {
-      setEmail(emailParam);
-      setPassword(passwordParam);
-      handleLogin();
-    }
-  }, [emailParam, passwordParam]);
 
   const handleLogin = async () => {
     setIsPending(true);
@@ -50,7 +36,6 @@ export default function Login() {
         variant: "success",
         text: "Successfully logged in",
       });
-      redirect("/upload");
     }
     setIsPending(false);
   };
@@ -91,6 +76,7 @@ export default function Login() {
               <Button type="submit" isLoading={isPending}>
                 Login
               </Button>
+           
             </div>
             {/* <Divider text="or" />
             <div className="flex flex-col items-center justify-center mt-2 gap-2">
