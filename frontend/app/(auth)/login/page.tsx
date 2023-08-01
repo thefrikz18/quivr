@@ -4,6 +4,10 @@ import { redirect } from "next/navigation";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
+import Button from "@/lib/components/ui/Button";
+import Card from "@/lib/components/ui/Card";
+import Field from "@/lib/components/ui/Field";
+import PageHeading from "@/lib/components/ui/PageHeading";
 import { useSupabase } from "@/lib/context/SupabaseProvider";
 import { useToast } from "@/lib/hooks/useToast";
 
@@ -19,8 +23,8 @@ export default function Login() {
 
   useEffect(() => {
     if (router.query.email && router.query.password) {
-      setEmail(router.query.email);
-      setPassword(router.query.password);
+      setEmail(String(router.query.email));
+      setPassword(String(router.query.password));
       handleLogin();
     }
   }, [router.query]);
@@ -82,7 +86,6 @@ export default function Login() {
               <Button type="submit" isLoading={isPending}>
                 Login
               </Button>
-           
             </div>
             {/* <Divider text="or" />
             <div className="flex flex-col items-center justify-center mt-2 gap-2">
@@ -95,8 +98,8 @@ export default function Login() {
       </section>
     </main>
   );
-
 }
+
 
 // /* eslint-disable */
 // "use client";
