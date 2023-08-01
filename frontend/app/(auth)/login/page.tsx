@@ -14,11 +14,13 @@ import { useToast } from "@/lib/hooks/useToast";
 
 export default function Login() {
   const router = useRouter();
-  const { email: emailParam, password: passwordParam } = router.query;
+
+  const emailParam = Array.isArray(router.query.email) ? router.query.email[0] : router.query.email;
+  const passwordParam = Array.isArray(router.query.password) ? router.query.password[0] : router.query.password;
 
   const { supabase, session } = useSupabase();
-  const [email, setEmail] = useState(emailParam || "");
-  const [password, setPassword] = useState(passwordParam || "");
+  const [email, setEmail] = useState(emailParam || '');
+  const [password, setPassword] = useState(passwordParam || '');
   const [isPending, setIsPending] = useState(false);
 
   const { publish } = useToast();
