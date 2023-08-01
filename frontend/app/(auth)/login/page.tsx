@@ -9,15 +9,31 @@ import Field from "@/lib/components/ui/Field";
 import PageHeading from "@/lib/components/ui/PageHeading";
 import { useSupabase } from "@/lib/context/SupabaseProvider";
 import { useToast } from "@/lib/hooks/useToast";
-
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Login() {
+  const router = useRouter();
+
   const { supabase, session } = useSupabase();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [isPending, setIsPending] = useState(false);
 
   const { publish } = useToast();
+
+  useEffect(() => {
+    if (typeof router.query.email === 'string') {
+      setEmail(router.query.email);
+    }
+    if (typeof router.query.password === 'string') {
+      setPassword(router.query.password);
+    }
+    if (email && password) {
+      handleLogin();
+    }
+  }, [router.query]);
+
 
   const handleLogin = async () => {
     setIsPending(true);
