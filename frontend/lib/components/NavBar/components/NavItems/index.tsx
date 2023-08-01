@@ -2,9 +2,8 @@
 import { useFeature } from '@growthbook/growthbook-react';
 import Link from "next/link";
 import { Dispatch, HTMLAttributes, SetStateAction } from "react";
-import { MdPerson, MdSettings } from "react-icons/md";
+import { MdPerson } from "react-icons/md";
 
-import Button from "@/lib/components/ui/Button";
 import { useSupabase } from "@/lib/context/SupabaseProvider";
 import { cn } from "@/lib/utils";
 
@@ -55,7 +54,7 @@ export const NavItems = ({
             <Link aria-label="account" className="" href={"/user"}>
               <MdPerson className="text-2xl" />
             </Link>
-            <Link href={"/config"}>
+            {/* <Link href={"/config"}>
               <Button
                 variant={"tertiary"}
                 className="focus:outline-none text-2xl"
@@ -63,7 +62,7 @@ export const NavItems = ({
               >
                 <MdSettings />
               </Button>
-            </Link>
+            </Link> */}
           </>
         )}
         {/* {!isUserLoggedIn && <AuthButtons />} */}
